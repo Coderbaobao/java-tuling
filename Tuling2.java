@@ -16,11 +16,12 @@ public class Tuling2 {
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		String url = "http://www.tuling123.com/openapi/api";	
-		String end = "";
-		System.out.println("ÄãºÃÎÒÊÇÍ¼Áé»úÆ÷ÈË");
+		String end = new String();
+		Scanner input = new Scanner(System.in);
+		System.out.println("ä½ å¥½æˆ‘æ˜¯å›¾çµæœºå™¨äºº");
 		while (true) {
 			System.out.println();
-			end = new Scanner(System.in).nextLine();
+			end = input.nextLine();
 		    if (end != null) {
 			String text = InputData(end, url);
 			System.out.println(text);
@@ -31,13 +32,13 @@ public class Tuling2 {
 public static String InputData(String info,String url) {
 	JSONObject jsonParam;
 	JSONObject jsonObject;
-	//´´½¨json²¢¼ÓÈë¼üºÍÖµ
+	//åˆ›å»ºjsonå¹¶åŠ å…¥é”®å’Œå€¼
 	jsonParam = new JSONObject();
 	jsonParam.put("key", "18764c2743cb4280a1e7194c57c8ce60");		
 	jsonParam.put("info", info);
 	String data =  GetJsonData(jsonParam, url);
 	jsonObject = JSONObject.fromObject(data);
-	//Ö¸¶¨»ñÈ¡textµÄÖµ
+	//æŒ‡å®šè·å–textçš„å€¼
 	String text = jsonObject.getString("text"); 
 	return text;
 	
@@ -45,27 +46,27 @@ public static String InputData(String info,String url) {
 public static String GetJsonData (JSONObject jsonParam,String urls){
 	StringBuffer sb = new StringBuffer(); 
       try {
-    	    //´´½¨URL
+    	    //åˆ›å»ºURL
 	        URL url = new  URL(urls);
-	        //½¨Á¢Á¬½Ó
+	        //å»ºç«‹è¿æ¥
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-	        conn.setDoOutput(true);    //ÉèÖÃÔÊĞíÊä³ö
-	        conn.setDoInput(true);    //ÉèÖÃÔÊĞíÊäÈë
-	        conn.setRequestMethod("POST");   // ÉèÖÃ´«µİ·½Ê½
-	        conn.setRequestProperty("Content-Type", "json"); //ÉèÖÃ·¢ËÍÎÄ¼şÀàĞÍ
-	        //½¨Á¢×Ö·ûÊä³ö×ª»»Á÷£¬ÏòÖ¸ÏòµÄURL´«Èë²ÎÊı£¬²¢ÇÒ×ª»»UTF-8ÎÄ±¾¸ñÊ½ £¬½â¾öÖĞÎÄÂÒÂëÎÊÌâ
+	        conn.setDoOutput(true);    //è®¾ç½®å…è®¸è¾“å‡º
+	        conn.setDoInput(true);    //è®¾ç½®å…è®¸è¾“å…¥
+	        conn.setRequestMethod("POST");   // è®¾ç½®ä¼ é€’æ–¹å¼
+	        conn.setRequestProperty("Content-Type", "json"); //è®¾ç½®å‘é€æ–‡ä»¶ç±»å‹
+	        //å»ºç«‹å­—ç¬¦è¾“å‡ºè½¬æ¢æµï¼Œå‘æŒ‡å‘çš„URLä¼ å…¥å‚æ•°ï¼Œå¹¶ä¸”è½¬æ¢UTF-8æ–‡æœ¬æ ¼å¼ ï¼Œè§£å†³ä¸­æ–‡ä¹±ç é—®é¢˜
 	        OutputStreamWriter ot = new OutputStreamWriter(conn.getOutputStream(),"UTF-8");
-	        // Ğ´ÈëÇëÇóµÄ×Ö·û´®
+	        // å†™å…¥è¯·æ±‚çš„å­—ç¬¦ä¸²
 	        ot.write(jsonParam.toString());
-	        ot.flush(); //Ë¢ĞÂ»º³å
-	        ot.close();  //¹Ø±Õ
-	        //½¨Á¢ÊäÈëÁ÷  ½ÓÊÕURLÊäÈëÁ÷
+	        ot.flush(); //åˆ·æ–°ç¼“å†²
+	        ot.close();  //å…³é—­
+	        //å»ºç«‹è¾“å…¥æµ  æ¥æ”¶URLè¾“å…¥æµ
             InputStream ins = conn.getInputStream();  
             try {  
                   int readLine;  
-                  //½¨Á¢×Ö·û×ª»»Á÷ °Ñ×Ö½Ú×ª»»³É×Ö·û
+                  //å»ºç«‹å­—ç¬¦è½¬æ¢æµ æŠŠå­—èŠ‚è½¬æ¢æˆå­—ç¬¦
                   InputStreamReader isr =new InputStreamReader(ins,"UTF-8"); 
-                  //Ñ­»·Ğ´Èë×Ö½Ú ²¢×ª»»³É×Ö·û
+                  //å¾ªç¯å†™å…¥å­—èŠ‚ å¹¶è½¬æ¢æˆå­—ç¬¦
                   while ((readLine = isr.read()) != -1){ 
                     sb.append((char)readLine); 
                   }  
