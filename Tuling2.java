@@ -13,7 +13,9 @@ public class Tuling2 {
 	    GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS, TRACE
 
 	}
-	@SuppressWarnings("resource")
+	
+	public static final String URL="http://www.tuling123.com/openapi/api";
+	
 	public static void main(String[] args) {
 		String url = "http://www.tuling123.com/openapi/api";	
 		String end = new String();
@@ -23,31 +25,31 @@ public class Tuling2 {
 			System.out.println();
 			end = input.nextLine();
 		    if (end != null) {
-			String text = InputData(end, url);
+			String text = InputData(end);
 			System.out.println(text);
 		    }
 		}
 	}
 	
-public static String InputData(String info,String url) {
+public static String InputData(String info) {
 	JSONObject jsonParam;
 	JSONObject jsonObject;
 	//创建json并加入键和值
 	jsonParam = new JSONObject();
 	jsonParam.put("key", "18764c2743cb4280a1e7194c57c8ce60");		
 	jsonParam.put("info", info);
-	String data =  GetJsonData(jsonParam, url);
+	String data =  GetJsonData(jsonParam);
 	jsonObject = JSONObject.fromObject(data);
 	//指定获取text的值
 	String text = jsonObject.getString("text"); 
 	return text;
 	
 }
-public static String GetJsonData (JSONObject jsonParam,String urls){
+public static String GetJsonData (JSONObject jsonParam){
 	StringBuffer sb = new StringBuffer(); 
       try {
     	    //创建URL
-	        URL url = new  URL(urls);
+	        URL url = new  URL(URL);
 	        //建立连接
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	        conn.setDoOutput(true);    //设置允许输出
